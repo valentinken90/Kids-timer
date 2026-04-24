@@ -564,9 +564,73 @@ header {
   border-top: 1px solid #f1f5f9;
 }
 
-/* ── Responsive tweaks ── */
+/* ── Small phone ── */
 @media (max-width: 360px) {
   #time-remaining { font-size: 2.5rem; }
   #timer-wrap { width: 240px; height: 240px; }
   .btn-large { padding: 14px 28px; font-size: 1.05rem; }
+}
+
+/* ── iPad / tablet — two-column layout (768 px +) ── */
+@media (min-width: 768px) {
+  #app {
+    max-width: 1000px;
+    padding: 28px 48px 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "header   header"
+      "badge    tasks"
+      "timer    tasks"
+      "controls tasks"
+      "earned   tasks";
+    row-gap: 14px;
+    column-gap: 48px;
+    align-items: start;
+  }
+
+  header         { grid-area: header; }
+  #zone-badge    { grid-area: badge;  justify-self: center; }
+  #timer-wrap    { grid-area: timer;  width: 340px; height: 340px; justify-self: center; }
+  #controls      { grid-area: controls; }
+  #earned-bar    { grid-area: earned; }
+  #tasks-section { grid-area: tasks; min-height: 300px; }
+
+  .header-title h1 { font-size: 2rem; }
+  #time-remaining  { font-size: 3.75rem; }
+  #time-label      { font-size: 0.95rem; }
+
+  .task-item       { padding: 16px 18px; }
+  .task-name       { font-size: 1.05rem; }
+  .task-checkbox   { width: 34px; height: 34px; font-size: 1.1rem; }
+
+  /* Settings: centred floating card instead of bottom sheet */
+  #settings-overlay {
+    align-items: center;
+    padding: 24px;
+  }
+
+  #settings-panel {
+    border-radius: 20px;
+    max-width: 540px;
+    max-height: 88dvh;
+  }
+}
+
+/* ── iPad Pro / large tablet (1024 px +) ── */
+@media (min-width: 1024px) {
+  #app {
+    max-width: 1100px;
+    padding: 36px 64px 72px;
+    column-gap: 64px;
+  }
+
+  #timer-wrap    { width: 390px; height: 390px; }
+  #time-remaining { font-size: 4.25rem; }
+
+  .btn-large     { padding: 18px 48px; font-size: 1.25rem; }
+  .task-item     { padding: 18px 20px; gap: 16px; }
+  .task-name     { font-size: 1.1rem; }
+  .task-duration { font-size: 0.875rem; }
+  .task-checkbox { width: 36px; height: 36px; }
 }
