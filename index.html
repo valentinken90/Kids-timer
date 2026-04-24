@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>My Timer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <header>
+      <div class="header-title">
+        <span>⏱</span>
+        <h1>My Timer</h1>
+      </div>
+      <button id="btn-settings" class="btn-icon" aria-label="Open settings">⚙️</button>
+    </header>
+
+    <div id="zone-badge"></div>
+
+    <div id="timer-wrap">
+      <svg id="timer-svg" viewBox="0 0 300 300" aria-label="Timer ring" role="img">
+        <!-- Grey background track -->
+        <circle id="svg-track"    cx="150" cy="150" r="110" />
+        <!-- Zone arcs drawn back-to-front so green is on top -->
+        <circle id="svg-red"      cx="150" cy="150" r="110" class="zone-arc" />
+        <circle id="svg-yellow"   cx="150" cy="150" r="110" class="zone-arc" />
+        <circle id="svg-green"    cx="150" cy="150" r="110" class="zone-arc" />
+        <!-- Consumed overlay grows as time elapses, same colour as track -->
+        <circle id="svg-consumed" cx="150" cy="150" r="110" />
+        <!-- Current-position dot -->
+        <circle id="svg-dot" r="9" />
+      </svg>
+      <div id="timer-display">
+        <div id="time-remaining">60:00</div>
+        <div id="time-label">free time</div>
+      </div>
+    </div>
+
+    <div id="controls">
+      <button id="btn-start" class="btn btn-primary btn-large">▶ Start</button>
+      <button id="btn-reset" class="btn btn-ghost">↺ Reset</button>
+    </div>
+
+    <div id="earned-bar" class="hidden">
+      <span id="earned-text"></span>
+    </div>
+
+    <section id="tasks-section">
+      <div class="tasks-header">
+        <h2>My Tasks</h2>
+        <span id="tasks-count"></span>
+      </div>
+      <div id="task-list"></div>
+    </section>
+
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="hidden" role="status" aria-live="polite"></div>
+
+  <!-- Settings slide-up panel -->
+  <div id="settings-overlay" class="hidden" role="dialog" aria-modal="true" aria-label="Settings">
+    <div id="settings-panel">
+
+      <div class="settings-head">
+        <h2>Settings</h2>
+        <button id="btn-close-settings" class="btn-icon" aria-label="Close settings">✕</button>
+      </div>
+
+      <div class="settings-scroll">
+
+        <section class="settings-section">
+          <h3 class="section-label">Timer Duration</h3>
+
+          <div class="setting-row">
+            <label for="set-total">Total time</label>
+            <div class="input-row">
+              <input id="set-total" type="number" min="1" max="480" inputmode="numeric">
+              <span class="unit">min</span>
+            </div>
+          </div>
+
+          <div class="setting-row">
+            <label for="set-green">🟢 Free (green) time</label>
+            <div class="input-row">
+              <input id="set-green" type="number" min="0" inputmode="numeric">
+              <span class="unit">min</span>
+            </div>
+          </div>
+
+          <div class="setting-row">
+            <label for="set-yellow">🟡 Warning (yellow) time</label>
+            <div class="input-row">
+              <input id="set-yellow" type="number" min="0" inputmode="numeric">
+              <span class="unit">min</span>
+            </div>
+          </div>
+
+          <div class="setting-row">
+            <label>🔴 Task (red) time</label>
+            <div class="input-row">
+              <span id="set-red-display" class="computed-val">15 min</span>
+            </div>
+          </div>
+
+          <p class="settings-hint">Red time is calculated automatically: total − green − yellow.</p>
+          <div id="settings-error" class="settings-error hidden"></div>
+        </section>
+
+        <section class="settings-section">
+          <h3 class="section-label">Tasks</h3>
+          <div id="settings-task-list"></div>
+          <button id="btn-add-task" class="btn btn-ghost btn-full">+ Add Task</button>
+        </section>
+
+      </div>
+
+      <div class="settings-foot">
+        <button id="btn-save-settings" class="btn btn-primary btn-full">Save Settings</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
